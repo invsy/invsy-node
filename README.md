@@ -28,11 +28,11 @@ import Invsy from 'invsy';
 const client = new Invsy();
 
 async function main() {
-  const chatCreateResponse = await client.projects.users.chats.create('REPLACE_ME', 'REPLACE_ME', {
+  const chat = await client.projects.users.chats.create('REPLACE_ME', 'REPLACE_ME', {
     body: { share_path: '/custom/path', group_id: 'group123' },
   });
 
-  console.log(chatCreateResponse.id);
+  console.log(chat.id);
 }
 
 main();
@@ -52,8 +52,11 @@ async function main() {
   const params: Invsy.Projects.Users.ChatCreateParams = {
     body: { share_path: '/custom/path', group_id: 'group123' },
   };
-  const chatCreateResponse: Invsy.Projects.Users.ChatCreateResponse =
-    await client.projects.users.chats.create('REPLACE_ME', 'REPLACE_ME', params);
+  const chat: Invsy.Projects.Users.Chat = await client.projects.users.chats.create(
+    'REPLACE_ME',
+    'REPLACE_ME',
+    params,
+  );
 }
 
 main();
@@ -70,7 +73,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const chatCreateResponse = await client.projects.users.chats
+  const chat = await client.projects.users.chats
     .create('REPLACE_ME', 'REPLACE_ME', { body: { share_path: '/custom/path', group_id: 'group123' } })
     .catch(async (err) => {
       if (err instanceof Invsy.APIError) {
@@ -159,11 +162,11 @@ const response = await client.projects.users.chats
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: chatCreateResponse, response: raw } = await client.projects.users.chats
+const { data: chat, response: raw } = await client.projects.users.chats
   .create('REPLACE_ME', 'REPLACE_ME', { body: { share_path: '/custom/path', group_id: 'group123' } })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(chatCreateResponse.id);
+console.log(chat.id);
 ```
 
 ### Making custom/undocumented requests
