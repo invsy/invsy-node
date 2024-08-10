@@ -6,14 +6,14 @@ import * as ChatsAPI from './chats';
 
 export class Chats extends APIResource {
   /**
-   * Create a new chat within a project
+   * Create a new chat in a project
    */
   create(
     projectId: string,
     userId: string,
     body: ChatCreateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ChatCreateResponse> {
+  ): Core.APIPromise<Chat> {
     return this._client.post(`/projects/${projectId}/users/${userId}/chats`, { body, ...options });
   }
 
@@ -46,7 +46,7 @@ export interface Chat {
 
   created_at: string;
 
-  messages: Array<Chat.Message>;
+  messages: string;
 
   project_id: string;
 
@@ -58,29 +58,7 @@ export interface Chat {
   meta?: Record<string, string>;
 }
 
-export namespace Chat {
-  export interface Message {
-    id: string;
-
-    content: string;
-
-    created_at: string;
-
-    role: 'user' | 'assistant';
-  }
-}
-
 export type Chats = Array<Chat>;
-
-export interface ChatCreateResponse {
-  id: string;
-
-  created_at: string;
-
-  project_id: string;
-
-  user_id: string;
-}
 
 export type ChatCreateParams = Record<string, string>;
 
@@ -93,7 +71,6 @@ export interface ChatUpdateParams {
 export namespace Chats {
   export import Chat = ChatsAPI.Chat;
   export import Chats = ChatsAPI.Chats;
-  export import ChatCreateResponse = ChatsAPI.ChatCreateResponse;
   export import ChatCreateParams = ChatsAPI.ChatCreateParams;
   export import ChatUpdateParams = ChatsAPI.ChatUpdateParams;
 }
