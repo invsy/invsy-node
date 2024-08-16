@@ -13,7 +13,7 @@ export class Chats extends APIResource {
     userId: string,
     body: ChatCreateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Chat> {
+  ): Core.APIPromise<ChatCreateResponse> {
     return this._client.post(`/projects/${projectId}/users/${userId}/chats`, { body, ...options });
   }
 
@@ -22,7 +22,7 @@ export class Chats extends APIResource {
     userId: string,
     chatId: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Chat> {
+  ): Core.APIPromise<ChatRetrieveResponse> {
     return this._client.get(`/projects/${projectId}/users/${userId}/chats/${chatId}`, options);
   }
 
@@ -32,11 +32,11 @@ export class Chats extends APIResource {
     chatId: string,
     body: ChatUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Chat> {
+  ): Core.APIPromise<ChatUpdateResponse> {
     return this._client.put(`/projects/${projectId}/users/${userId}/chats/${chatId}`, { body, ...options });
   }
 
-  list(projectId: string, userId: string, options?: Core.RequestOptions): Core.APIPromise<Chats> {
+  list(projectId: string, userId: string, options?: Core.RequestOptions): Core.APIPromise<ChatListResponse> {
     return this._client.get(`/projects/${projectId}/users/${userId}/chats`, options);
   }
 }
@@ -46,7 +46,7 @@ export interface Chat {
 
   created_at: string;
 
-  messages: string;
+  messages: Array<Chat.Message>;
 
   project_id: string;
 
@@ -58,7 +58,43 @@ export interface Chat {
   meta?: Record<string, string>;
 }
 
+export namespace Chat {
+  export interface Message {
+    id: string;
+
+    content: string;
+
+    created_at: string;
+
+    role: 'user' | 'assistant';
+  }
+}
+
 export type Chats = Array<Chat>;
+
+export interface ChatCreateResponse {
+  result: Chat;
+
+  success: boolean;
+}
+
+export interface ChatRetrieveResponse {
+  result: Chat;
+
+  success: boolean;
+}
+
+export interface ChatUpdateResponse {
+  result: Chat;
+
+  success: boolean;
+}
+
+export interface ChatListResponse {
+  result: Chats;
+
+  success: boolean;
+}
 
 export type ChatCreateParams = Record<string, string>;
 
@@ -71,6 +107,10 @@ export interface ChatUpdateParams {
 export namespace Chats {
   export import Chat = ChatsAPI.Chat;
   export import Chats = ChatsAPI.Chats;
+  export import ChatCreateResponse = ChatsAPI.ChatCreateResponse;
+  export import ChatRetrieveResponse = ChatsAPI.ChatRetrieveResponse;
+  export import ChatUpdateResponse = ChatsAPI.ChatUpdateResponse;
+  export import ChatListResponse = ChatsAPI.ChatListResponse;
   export import ChatCreateParams = ChatsAPI.ChatCreateParams;
   export import ChatUpdateParams = ChatsAPI.ChatUpdateParams;
 }
