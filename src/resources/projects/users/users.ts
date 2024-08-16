@@ -10,6 +10,10 @@ export class Users extends APIResource {
 export namespace Users {
   export import Chats = ChatsAPI.Chats;
   export import Chat = ChatsAPI.Chat;
+  export import ChatCreateResponse = ChatsAPI.ChatCreateResponse;
+  export import ChatRetrieveResponse = ChatsAPI.ChatRetrieveResponse;
+  export import ChatUpdateResponse = ChatsAPI.ChatUpdateResponse;
+  export import ChatListResponse = ChatsAPI.ChatListResponse;
   export import ChatCreateParams = ChatsAPI.ChatCreateParams;
   export import ChatUpdateParams = ChatsAPI.ChatUpdateParams;
 }
