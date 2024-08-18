@@ -99,9 +99,21 @@ export interface ChatListResponse {
 export type ChatCreateParams = Record<string, string>;
 
 export interface ChatUpdateParams {
-  content: string;
+  content: string | Array<ChatUpdateParams.UnionMember1>;
 
   role: 'user' | 'assistant' | 'tool';
+}
+
+export namespace ChatUpdateParams {
+  export interface UnionMember1 {
+    toolCallId: string;
+
+    toolName: string;
+
+    type: string;
+
+    result?: unknown | null;
+  }
 }
 
 export namespace Chats {
