@@ -67,7 +67,7 @@ export namespace Chat {
      */
     content: string | Array<Message.UnionMember1>;
 
-    role: 'user' | 'assistant' | 'tool';
+    role: 'user' | 'assistant' | 'tool' | 'system';
 
     id?: string;
 
@@ -164,7 +164,7 @@ export namespace ChatUpdateParams {
      */
     content: string | Array<Message.UnionMember1>;
 
-    role: 'user' | 'assistant' | 'tool';
+    role: 'user' | 'assistant' | 'tool' | 'system';
 
     id?: string;
 
