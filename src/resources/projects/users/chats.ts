@@ -27,13 +27,15 @@ export class Chats extends APIResource {
   }
 
   update(
-    projectId: string,
-    userId: string,
     chatId: string,
-    body: ChatUpdateParams,
+    params: ChatUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<ChatUpdateResponse> {
-    return this._client.put(`/projects/${projectId}/users/${userId}/chats/${chatId}`, { body, ...options });
+    const { path_project_id, path_user_id, body_project_id, body_user_id, ...body } = params;
+    return this._client.put(`/projects/${path_project_id}/users/${path_user_id}/chats/${chatId}`, {
+      body: { project_id: body_project_id, user_id: body_user_id, ...body },
+      ...options,
+    });
   }
 
   list(projectId: string, userId: string, options?: Core.RequestOptions): Core.APIPromise<ChatListResponse> {
@@ -62,11 +64,26 @@ export namespace Chat {
   export interface Message {
     id: string;
 
-    content: string;
+    /**
+     * The content of the message.
+     */
+    content: string | Array<Message.UnionMember1>;
 
     created_at: string;
 
-    role: 'user' | 'assistant';
+    role: 'user' | 'assistant' | 'tool';
+  }
+
+  export namespace Message {
+    export interface UnionMember1 {
+      toolCallId: string;
+
+      toolName: string;
+
+      type: string;
+
+      result?: unknown | null;
+    }
   }
 }
 
@@ -99,20 +116,71 @@ export interface ChatListResponse {
 export type ChatCreateParams = Record<string, string>;
 
 export interface ChatUpdateParams {
-  content: string | Array<ChatUpdateParams.UnionMember1>;
+  /**
+   * Path param:
+   */
+  path_project_id: string;
 
-  role: 'user' | 'assistant' | 'tool';
+  /**
+   * Path param:
+   */
+  path_user_id: string;
+
+  /**
+   * Body param:
+   */
+  id: string;
+
+  /**
+   * Body param:
+   */
+  created_at: string;
+
+  /**
+   * Body param:
+   */
+  messages: Array<ChatUpdateParams.Message>;
+
+  /**
+   * Body param:
+   */
+  body_project_id: string;
+
+  /**
+   * Body param:
+   */
+  body_user_id: string;
+
+  /**
+   * Body param: Metadata for the chat
+   */
+  meta?: Record<string, string>;
 }
 
 export namespace ChatUpdateParams {
-  export interface UnionMember1 {
-    toolCallId: string;
+  export interface Message {
+    id: string;
 
-    toolName: string;
+    /**
+     * The content of the message.
+     */
+    content: string | Array<Message.UnionMember1>;
 
-    type: string;
+    created_at: string;
 
-    result?: unknown | null;
+    role: 'user' | 'assistant' | 'tool';
+  }
+
+  export namespace Message {
+    export interface UnionMember1 {
+      toolCallId: string;
+
+      toolName: string;
+
+      type: string;
+
+      result?: unknown | null;
+    }
   }
 }
 

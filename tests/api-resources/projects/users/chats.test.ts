@@ -57,12 +57,34 @@ describe('resource chats', () => {
   });
 
   test('update: only required params', async () => {
-    const responsePromise = client.projects.users.chats.update(
-      '7240303bcfc8a079bf67c2caa08b5d29',
-      '3db648cbb7f933aeb705b821c47c0e39',
-      '1febfa740898c02b25897949bf6961ad',
-      { content: 'Hello, this is a message.', role: 'user' },
-    );
+    const responsePromise = client.projects.users.chats.update('1febfa740898c02b25897949bf6961ad', {
+      path_project_id: '7240303bcfc8a079bf67c2caa08b5d29',
+      path_user_id: '3db648cbb7f933aeb705b821c47c0e39',
+      id: '1febfa740898c02b25897949bf6961ad',
+      created_at: '2024-08-08T21:19:38.855Z',
+      messages: [
+        {
+          id: '9f07c436ad3ecb7cb446e5e66400e1e3',
+          content: 'Hello, this is a message.',
+          created_at: '2024-08-08T21:19:38.855Z',
+          role: 'user',
+        },
+        {
+          id: '9f07c436ad3ecb7cb446e5e66400e1e3',
+          content: 'Hello, this is a message.',
+          created_at: '2024-08-08T21:19:38.855Z',
+          role: 'user',
+        },
+        {
+          id: '9f07c436ad3ecb7cb446e5e66400e1e3',
+          content: 'Hello, this is a message.',
+          created_at: '2024-08-08T21:19:38.855Z',
+          role: 'user',
+        },
+      ],
+      body_project_id: '7240303bcfc8a079bf67c2caa08b5d29',
+      body_user_id: '3db648cbb7f933aeb705b821c47c0e39',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -73,12 +95,35 @@ describe('resource chats', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await client.projects.users.chats.update(
-      '7240303bcfc8a079bf67c2caa08b5d29',
-      '3db648cbb7f933aeb705b821c47c0e39',
-      '1febfa740898c02b25897949bf6961ad',
-      { content: 'Hello, this is a message.', role: 'user' },
-    );
+    const response = await client.projects.users.chats.update('1febfa740898c02b25897949bf6961ad', {
+      path_project_id: '7240303bcfc8a079bf67c2caa08b5d29',
+      path_user_id: '3db648cbb7f933aeb705b821c47c0e39',
+      id: '1febfa740898c02b25897949bf6961ad',
+      created_at: '2024-08-08T21:19:38.855Z',
+      messages: [
+        {
+          id: '9f07c436ad3ecb7cb446e5e66400e1e3',
+          content: 'Hello, this is a message.',
+          created_at: '2024-08-08T21:19:38.855Z',
+          role: 'user',
+        },
+        {
+          id: '9f07c436ad3ecb7cb446e5e66400e1e3',
+          content: 'Hello, this is a message.',
+          created_at: '2024-08-08T21:19:38.855Z',
+          role: 'user',
+        },
+        {
+          id: '9f07c436ad3ecb7cb446e5e66400e1e3',
+          content: 'Hello, this is a message.',
+          created_at: '2024-08-08T21:19:38.855Z',
+          role: 'user',
+        },
+      ],
+      body_project_id: '7240303bcfc8a079bf67c2caa08b5d29',
+      body_user_id: '3db648cbb7f933aeb705b821c47c0e39',
+      meta: { share_path: '/custom/path', group_id: 'group123' },
+    });
   });
 
   test('list', async () => {
