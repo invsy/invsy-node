@@ -62,16 +62,16 @@ export interface Chat {
 
 export namespace Chat {
   export interface Message {
-    id: string;
-
     /**
      * The content of the message.
      */
     content: string | Array<Message.UnionMember1>;
 
-    created_at: string;
-
     role: 'user' | 'assistant' | 'tool';
+
+    id?: string;
+
+    created_at?: string;
   }
 
   export namespace Message {
@@ -159,16 +159,16 @@ export interface ChatUpdateParams {
 
 export namespace ChatUpdateParams {
   export interface Message {
-    id: string;
-
     /**
      * The content of the message.
      */
     content: string | Array<Message.UnionMember1>;
 
-    created_at: string;
-
     role: 'user' | 'assistant' | 'tool';
+
+    id?: string;
+
+    created_at?: string;
   }
 
   export namespace Message {
