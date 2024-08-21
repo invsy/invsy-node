@@ -98,7 +98,7 @@ export class Invsy extends Core.APIClient {
     this._options = options;
   }
 
-  projects: API.Projects = new API.Projects(this);
+  chats: API.Chats = new API.Chats(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -154,7 +154,16 @@ export import fileFromPath = Uploads.fileFromPath;
 export namespace Invsy {
   export import RequestOptions = Core.RequestOptions;
 
-  export import Projects = API.Projects;
+  export import Chats = API.Chats;
+  export import Chat = API.Chat;
+  export import ChatCreateResponse = API.ChatCreateResponse;
+  export import ChatRetrieveResponse = API.ChatRetrieveResponse;
+  export import ChatUpdateResponse = API.ChatUpdateResponse;
+  export import ChatListResponse = API.ChatListResponse;
+  export import ChatDeleteResponse = API.ChatDeleteResponse;
+  export import ChatDeleteAllResponse = API.ChatDeleteAllResponse;
+  export import ChatCreateParams = API.ChatCreateParams;
+  export import ChatUpdateParams = API.ChatUpdateParams;
 }
 
 export default Invsy;

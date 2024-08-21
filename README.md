@@ -28,11 +28,9 @@ import Invsy from 'invsy';
 const client = new Invsy();
 
 async function main() {
-  const chatCreateResponse = await client.projects.users.chats.create('REPLACE_ME', 'REPLACE_ME', {
-    body: { share_path: '/custom/path', group_id: 'group123' },
-  });
+  const chatRetrieveResponse = await client.chats.retrieve('REPLACE_ME', 'REPLACE_ME', 'REPLACE_ME');
 
-  console.log(chatCreateResponse.result);
+  console.log(chatRetrieveResponse.result);
 }
 
 main();
@@ -49,11 +47,11 @@ import Invsy from 'invsy';
 const client = new Invsy();
 
 async function main() {
-  const params: Invsy.Projects.Users.ChatCreateParams = {
-    body: { share_path: '/custom/path', group_id: 'group123' },
-  };
-  const chatCreateResponse: Invsy.Projects.Users.ChatCreateResponse =
-    await client.projects.users.chats.create('REPLACE_ME', 'REPLACE_ME', params);
+  const chatRetrieveResponse: Invsy.ChatRetrieveResponse = await client.chats.retrieve(
+    'REPLACE_ME',
+    'REPLACE_ME',
+    'REPLACE_ME',
+  );
 }
 
 main();
@@ -70,8 +68,8 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const chatCreateResponse = await client.projects.users.chats
-    .create('REPLACE_ME', 'REPLACE_ME', { body: { share_path: '/custom/path', group_id: 'group123' } })
+  const chatRetrieveResponse = await client.chats
+    .retrieve('REPLACE_ME', 'REPLACE_ME', 'REPLACE_ME')
     .catch(async (err) => {
       if (err instanceof Invsy.APIError) {
         console.log(err.status); // 400
@@ -115,7 +113,7 @@ const client = new Invsy({
 });
 
 // Or, configure per-request:
-await client.projects.users.chats.create('REPLACE_ME', 'REPLACE_ME', { body: { share_path: '/custom/path', group_id: 'group123' } }, {
+await client.chats.retrieve('REPLACE_ME', 'REPLACE_ME', 'REPLACE_ME', {
   maxRetries: 5,
 });
 ```
@@ -132,7 +130,7 @@ const client = new Invsy({
 });
 
 // Override per-request:
-await client.projects.users.chats.create('REPLACE_ME', 'REPLACE_ME', { body: { share_path: '/custom/path', group_id: 'group123' } }, {
+await client.chats.retrieve('REPLACE_ME', 'REPLACE_ME', 'REPLACE_ME', {
   timeout: 5 * 1000,
 });
 ```
@@ -153,17 +151,15 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Invsy();
 
-const response = await client.projects.users.chats
-  .create('REPLACE_ME', 'REPLACE_ME', { body: { share_path: '/custom/path', group_id: 'group123' } })
-  .asResponse();
+const response = await client.chats.retrieve('REPLACE_ME', 'REPLACE_ME', 'REPLACE_ME').asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: chatCreateResponse, response: raw } = await client.projects.users.chats
-  .create('REPLACE_ME', 'REPLACE_ME', { body: { share_path: '/custom/path', group_id: 'group123' } })
+const { data: chatRetrieveResponse, response: raw } = await client.chats
+  .retrieve('REPLACE_ME', 'REPLACE_ME', 'REPLACE_ME')
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(chatCreateResponse.result);
+console.log(chatRetrieveResponse.result);
 ```
 
 ### Making custom/undocumented requests
@@ -267,14 +263,9 @@ const client = new Invsy({
 });
 
 // Override per-request:
-await client.projects.users.chats.create(
-  'REPLACE_ME',
-  'REPLACE_ME',
-  { body: { share_path: '/custom/path', group_id: 'group123' } },
-  {
-    httpAgent: new http.Agent({ keepAlive: false }),
-  },
-);
+await client.chats.retrieve('REPLACE_ME', 'REPLACE_ME', 'REPLACE_ME', {
+  httpAgent: new http.Agent({ keepAlive: false }),
+});
 ```
 
 ## Semantic versioning
