@@ -1,6 +1,6 @@
 {
   "name": "invsy",
-  "version": "0.0.1-alpha.0",
+  "version": "2.0.0",
   "description": "The official TypeScript library for the Invsy API",
   "author": "Invsy <dev-feedback@invsy.com>",
   "types": "dist/index.d.ts",
